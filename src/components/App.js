@@ -37,7 +37,7 @@ class App extends Component {
 
     render() {
         const location = this.props.location ? `Current Coords: ${this.props.location.lat} - ${this.props.location.lon}`: "no location"
-        const weather = this.props.weather ? <Animated text={`city name has high of ${this.props.weather.main.temp_max} and low of ${this.props.weather.main.temp_min}`}/> : 'no weather data'
+        const weather = this.props.weather ? <Animated text={`city ${this.props.weather.name} has high of ${this.props.weather.main.temp_max} and low of ${this.props.weather.main.temp_min}`}/> : 'no weather data'
         const latency = this.props.latency ? `websocket took ${this.props.latency/1000} seconds to return message`: 'Latency has not been measured yet'
 
         return (
