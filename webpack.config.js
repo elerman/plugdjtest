@@ -63,7 +63,7 @@ module.exports = {
     }
   },
   plugins: [
-    new HtmlWebpackPlugin({title: "React webpack test", template: 'index.html', filename: 'index.html'}),
+    new HtmlWebpackPlugin({title: "Plug dj test", template: 'index.html', filename: 'index.html'}),
     new webpack.HotModuleReplacementPlugin(),
     new CleanWebpackPlugin(['dist'])
   ]

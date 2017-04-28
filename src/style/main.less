@@ -1,4 +1,30 @@
+body{
+    margin-top: 30px;
+    background: url(http://res.cloudinary.com/www-gangofcoders-com/image/upload/v1493360643/rainback_nlilja.jpg) no-repeat;
+    background-size: cover;
+}
+
 :local(.app){
-    text-align: center;
-    padding-top: 20px;
+    padding-top: 1rem;
+    .app-container{
+        font-family: 'Open Sans Condensed', sans-serif;
+        border: 1px solid #ececec;
+        background: #fbfbfb;
+        border-radius: 3px;
+        max-width: 320px;
+    }
+
+    form{
+        input[type="text"]{
+            border: none;
+            background: none;
+            border-bottom: 1px solid #ddd;
+            border-radius: 0;
+            outline: none;
+            padding-left: 0;
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+        }
+    }
+
 }

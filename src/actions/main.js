@@ -27,8 +27,8 @@ export const weatherResults = (weather) => {
 export const GET_WEATHER = "GET_WEATHER"
 export const getWeather = (lat, lon, query) => {
     return (dispatch) => {
-        let api = (lat && lon)? `http://api.openweathermap.org/data/2.5/weather?APPID=4e9c339913ec87d7a78b6c0242b5489c&lat=${lat}&lon=${lon}`: 
-                                `http://api.openweathermap.org/data/2.5/weather?APPID=4e9c339913ec87d7a78b6c0242b5489c&q=${query}`
+        let api = (lat && lon)? `http://api.openweathermap.org/data/2.5/weather?APPID=4e9c339913ec87d7a78b6c0242b5489c&lat=${lat}&lon=${lon}&units=metric`: 
+                                `http://api.openweathermap.org/data/2.5/weather?APPID=4e9c339913ec87d7a78b6c0242b5489c&q=${query}&units=metric`
         return fetch(api).then(response => {
             if (!response.ok) {
                 alert('oops. weather api failed')
