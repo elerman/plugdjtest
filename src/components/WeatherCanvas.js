@@ -23,42 +23,53 @@ class WeatherCanvas extends Component {
 
     init() {
 
+        var self = this
         var context = this.ctx = this.refs.canvas.getContext('2d');
+        context.clearRect(0,0,280,110)
 
-        const draw = (text, size, color, position)=>{
+        const draw = (text, size, color, position, chainCbk)=>{
 
             var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
                               window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
             window.requestAnimationFrame = requestAnimationFrame;
             
             var alpha = 0
+            const baseX = -200
+            var currentX = baseX
 
             const dodraw = ()=>{
-                this.ctx.clearRect(position.x, position.y-30, 280, 100)
+                context.clearRect(position.x, position.y-30, 280, 100)
 
-                this.ctx.font = `bold ${size}px Open Sans Condensed, sans-serif`;
-                this.ctx.fillStyle =`rgba(${color},${alpha})`;
-                this.ctx.fillText(text, position.x, position.y);
+                context.font = `bold ${size}px Open Sans Condensed, sans-serif`;
+                context.fillStyle =`rgba(${color},${alpha})`;
+                context.fillText(text, currentX, position.y);
 
-                alpha = alpha + 0.05; 
-                if (alpha < 1) {
+                alpha = alpha < 1 ? alpha + 0.05: 1; 
+                currentX = currentX < 0 ? currentX + 1 : 0
+                if (currentX < 0) 
                     requestAnimationFrame(dodraw)
-                }
+                else 
+                    if (chainCbk)
+                        chainCbk()
             }
-
             requestAnimationFrame(dodraw)
         }
 
-        draw(`City ${this.props.weather.name}`, 30, "77,77,77", {x:0, y:25})
-        draw(`High: ${this.props.weather.main.temp_max}`, 20, "217,34,20", {x:0, y:65})
-        draw(`Low: ${this.props.weather.main.temp_min}`, 20, "0,0,100", {x:0, y:100})
 
-        var weatherIcon = new Image();
-        weatherIcon.src = `http://openweathermap.org/img/w/${this.props.weather.weather[0].icon}.png`;           
-        weatherIcon.onload = function()
-        {
-            context.drawImage(weatherIcon, 200, 50);
+        const iconLoad = ()=>{
+            var weatherIcon = new Image();
+            weatherIcon.src = `http://openweathermap.org/img/w/${self.props.weather.weather[0].icon}.png`;           
+            weatherIcon.onload = function()
+            {
+                context.drawImage(weatherIcon, 200, 50);
+            }
         }
+
+        draw(`City ${this.props.weather.name}`, 30, "77,77,77", {x:0, y:25}, 
+            ()=>{draw(`High: ${this.props.weather.main.temp_max}`, 20, "217,34,20", {x:0, y:65}, 
+                ()=>{draw(`Low: ${this.props.weather.main.temp_min}`, 20, "0,0,100", {x:0, y:100}, iconLoad)}
+            )}
+        )
 
     }
     
