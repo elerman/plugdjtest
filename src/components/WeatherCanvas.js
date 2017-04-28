@@ -38,19 +38,23 @@ class WeatherCanvas extends Component {
             var currentX = baseX
 
             const dodraw = ()=>{
-                context.clearRect(position.x, position.y-30, 280, 100)
+                context.clearRect(currentX, position.y-30, 280, 100)
 
                 context.font = `bold ${size}px Open Sans Condensed, sans-serif`;
                 context.fillStyle =`rgba(${color},${alpha})`;
                 context.fillText(text, currentX, position.y);
 
                 alpha = alpha < 1 ? alpha + 0.05: 1; 
-                currentX = currentX < 0 ? currentX + 1 : 0
-                if (currentX < 0) 
+                
+                currentX = currentX + 10
+
+                if (currentX < position.x) 
                     requestAnimationFrame(dodraw)
                 else 
-                    if (chainCbk)
+                    if (chainCbk){
+                        currentX = baseX
                         chainCbk()
+                    }
             }
             requestAnimationFrame(dodraw)
         }
@@ -61,13 +65,13 @@ class WeatherCanvas extends Component {
             weatherIcon.src = `http://openweathermap.org/img/w/${self.props.weather.weather[0].icon}.png`;           
             weatherIcon.onload = function()
             {
-                context.drawImage(weatherIcon, 200, 50);
+                context.drawImage(weatherIcon, 200, 30);
             }
         }
 
-        draw(`City ${this.props.weather.name}`, 30, "77,77,77", {x:0, y:25}, 
-            ()=>{draw(`High: ${this.props.weather.main.temp_max}`, 20, "217,34,20", {x:0, y:65}, 
-                ()=>{draw(`Low: ${this.props.weather.main.temp_min}`, 20, "0,0,100", {x:0, y:100}, iconLoad)}
+        draw(`${this.props.weather.name}`, 30, "77,77,77", {x:10, y:25}, 
+            ()=>{draw(`High: ${this.props.weather.main.temp_max}`, 20, "217,34,20", {x:10, y:65}, 
+                ()=>{draw(`Low: ${this.props.weather.main.temp_min}`, 20, "0,0,100", {x:10, y:100}, iconLoad)}
             )}
         )
 

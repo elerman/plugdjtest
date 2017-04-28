@@ -38,7 +38,7 @@ class App extends Component {
     render() {
         const location = this.props.location ? `Current Coords: ${this.props.location.lat} - ${this.props.location.lon}`: "Type a city and get the weather!"
         const weather = this.props.weather ? <WeatherCanvas weather={this.props.weather} /> : null
-        const latency = this.props.latency ? `websocket took ${this.props.latency/1000} seconds to return message`: null
+        const latency = this.props.latency ? `Websocket took ${this.props.latency/1000} seconds to return message`: null
 
         return (
             <div className={`${css.app} row justify-content-center`}>
@@ -50,7 +50,7 @@ class App extends Component {
                         </div>
                     </form>
                     {weather}
-                    <p>{latency}</p>
+                    <small>{latency}</small>
                 </section>
             </div>
         );
