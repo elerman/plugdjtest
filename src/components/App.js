@@ -36,7 +36,7 @@ class App extends Component {
     }
 
     render() {
-        const location = this.props.location ? `Current Coords: ${this.props.location.lat} - ${this.props.location.lon}`: "Type a city and get the weather!"
+        const location = this.props.location ? `Current Coords: ${this.props.location.lat} - ${this.props.location.lon}`: "type a city and get the weather!"
         const weather = this.props.weather ? <WeatherCanvas weather={this.props.weather} /> : null
         const latency = this.props.latency ? `Websocket took ${this.props.latency/1000} seconds to return message`: null
 
@@ -45,8 +45,7 @@ class App extends Component {
                 <section className="col app-container">
                     <form onSubmit={(evt)=>{this.weatherByQuery(evt)}}>
                         <div className="form-group">
-                            <input type="text" value={this.state.input} onChange={this.updateInput} className="form-control form-control-lg" placeholder="Type a city name"/>
-                            <small>{location}</small>
+                            <input type="text" value={this.state.input} onChange={this.updateInput} className="form-control form-control-lg" placeholder="type a city name"/>
                         </div>
                     </form>
                     {weather}
