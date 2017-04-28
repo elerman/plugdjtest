@@ -11,5 +11,5 @@ Application will be available once webpack launches on localhost:3000
 4. background image from cdn
 5. some custom styling
 
-6.removed coords legend ( commented on code )
+6. removed coords legend ( commented on code )
 
